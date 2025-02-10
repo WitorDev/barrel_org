@@ -1,7 +1,7 @@
-import image0 from '../assets/shootingRangeWoman.jpg';
-import image1 from '../assets/shootingRangeWoman.jpg';
-import image2 from '../assets/shootingRangeWoman.jpg';
-import image3 from '../assets/shootingRangeWoman.jpg';
+import image0 from '../assets/trainers.jpg';
+import image1 from '../assets/training.jpg';
+import image2 from '../assets/facility.jpg';
+import image3 from '../assets/regiment.jpg';
 
 let content = [
   {
@@ -15,8 +15,8 @@ let content = [
     image: image1
   },
   {
-    title: "State-of-the-Art Facilities",
-    text: "We offer state-of-the-art facilities that provide the perfect environment for training, equipped with the latest technology and equipment.",
+    title: "State-of-the-Art Facility",
+    text: "We offer state-of-the-art facility that provide the perfect environment for training, equipped with the latest technology and equipment.",
     image: image2
   },
   {

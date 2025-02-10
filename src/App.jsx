@@ -11,6 +11,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/about" element={<Aboutpage />} />
+        {/* Catch-all route to handle unknown routes */}
+        <Route path="*" element={<Homepage />} />
       </Routes>
     </>
   );
