@@ -16,7 +16,7 @@ export default function Homepage() {
         <Content />
         <Students />
       </main>
-        <Footer />
+      <Footer />
     </div>
   );
 }
@@ -62,8 +62,7 @@ function Students() {
                 className="bg-yellow-500 text-slate-800 p-2 rounded-full hover:bg-yellow-600 transition"
                 onClick={() =>
                   setStudentIndex(
-                    (studentIndex - 1 + studentsList.length) %
-                      studentsList.length
+                    (studentIndex - 1 + studentsList.length) % studentsList.length
                   )
                 }
               >
@@ -100,11 +99,13 @@ function Hero() {
 }
 
 function Content() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   return (
     <section className="-translate-y-20 mx-auto max-w-screen-xl bg-slate-800 text-white">
       <div className="p-6 shadow-2xl flex-col sm:flex-row flex gap-5 sm:gap-0">
-        <TrainerProfiles />
-        <TrainerComment />
+        <TrainerProfiles currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
+        <TrainerComment currentIndex={currentIndex} />
       </div>
       <div className="mt-5 flex flex-col gap-5 h-[240vh]">
         {content.map((item, index) => (
@@ -169,31 +170,22 @@ function ResourceCard({ title, content, image, oposite, index }) {
   );
 }
 
-function TrainerProfiles() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % trainers.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+function TrainerProfiles({ currentIndex, setCurrentIndex }) {
   return (
-    <div className="w-1/2 flex h-[8vh] mb-2 sm:mb-0">
+    <div className="w-1/2 flex h-[8vh] mb-2 sm:mb-0 cursor-pointer">
       {trainers.map((trainer, index) => (
         <motion.div
           initial={{ scale: 0.5 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           key={index}
-          className={`overflow-hidden border-4 rounded-full w-20 absolute ${
+          className={`hover:border-6 transition-all overflow-hidden border-4 rounded-full w-20 absolute ${
             index === currentIndex
               ? "border-red-500 animate-pulse"
               : "border-yellow-500"
           }`}
           style={{ marginLeft: `${index * 50}px` }}
+          onClick={() => setCurrentIndex(index)}
         >
           <img src={trainer.image} alt={`${trainer.name} Photo`} />
         </motion.div>
@@ -202,21 +194,19 @@ function TrainerProfiles() {
   );
 }
 
-function TrainerComment() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function TrainerComment({ currentIndex }) {
   const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setOpacity(0);
       setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % trainers.length);
         setOpacity(1);
       }, 1000);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
   return (
     <div className="flex h-[8vh] my-5 sm:my-0 w-full items-center">

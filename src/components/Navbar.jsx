@@ -1,3 +1,4 @@
+import { button } from "framer-motion/client";
 import { useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -56,14 +57,22 @@ function NavLinks({ isOpen }) {
         isOpen ? "block" : "hidden"
       } mt-2 md:mt-0`}
     >
-      {["Home", "About", "Services", "Contact"].map((link) => (
-        <li
-          key={link}
-          className="hover:border-b-2 hover:border-yellow-500 py-2 md:py-0"
-        >
-          <Link to={`/${link.toLowerCase()}`}>{link}</Link>
-        </li>
-      ))}
+      {["Home", "About", "Contact"].map((link) =>
+        link == "Contact" ? (
+          <Link key={link} to={"/contact"}>
+            <button className="cursor-pointer bg-yellow-500 p-2 text-slate-800 font-bold hover:border-0 border-b-0 hover:text-yellow-500 hover:bg-slate-800">
+              Contact
+            </button>
+          </Link>
+        ) : (
+          <li
+            key={link}
+            className="hover:border-b-2 hover:border-yellow-500 py-2 md:py-0"
+          >
+            <Link to={`/${link.toLowerCase()}`}>{link}</Link>
+          </li>
+        )
+      )}
     </ul>
   );
 }

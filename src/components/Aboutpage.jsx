@@ -1,5 +1,5 @@
 import manWithRifle from "../assets/aboutImage.jpg";
-import React from "react";
+import React, { useState } from "react";
 import trainers from "../data/trainers.js";
 import { motion } from "framer-motion";
 import Footer from "./Footer.jsx";
@@ -16,8 +16,11 @@ const Section = ({ title, children }) => (
   </motion.div>
 );
 
-const TrainerCard = ({ trainer }) => (
-  <div className="group hover:shadow-2xl transition-all duration-700 hover:bg-gray-500 bg-gray-700 p-4 text-center">
+const TrainerCard = ({ trainer, onClick }) => (
+  <div
+    onClick={() => onClick(trainer)}
+    className="group hover:shadow-2xl transition-all duration-700 hover:bg-gray-500 bg-gray-700 p-4 text-center cursor-pointer"
+  >
     <img
       src={trainer.image}
       alt={`${trainer.name} Photo`}
@@ -38,6 +41,8 @@ const Image = ({ src }) => (
 );
 
 export default function About() {
+  const [selectedTrainer, setSelectedTrainer] = useState(null);
+
   return (
     <>
       <section className="mx-auto mb-20 max-w-screen-xl bg-slate-800 sm:text-justify text-xl sm:text-2xl">
@@ -67,7 +72,7 @@ export default function About() {
         <Section title="The Barrel Team">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
             {trainers.map((trainer, index) => (
-              <TrainerCard key={index} trainer={trainer} />
+              <TrainerCard key={index} trainer={trainer} onClick={setSelectedTrainer} />
             ))}
           </div>
           <p className="my-4 leading-relaxed">
@@ -79,6 +84,17 @@ export default function About() {
           </p>
         </Section>
       </section>
+
+      {selectedTrainer && (
+        <div className="fixed top-12 left-0 right-0 bg-gray-800 text-white h-screen p-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-4xl font-bold">{selectedTrainer.name}</h2>
+            <button onClick={() => setSelectedTrainer(null)} className="text-xl cursor-pointer hover:text-yellow-500">Close</button>
+          </div>
+          <p className="text-xl pt-10">{selectedTrainer.bio}</p>
+        </div>
+      )}
+
       <Footer />
     </>
   );

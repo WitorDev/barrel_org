@@ -43,13 +43,6 @@ export default function Footer() {
                             </li>
                             <li className="mb-2">
                                 <p className="text-lg">
-                                    <Link to="/services" className="text-yellow-500 hover:border-b-4 hover:border-slate-500">
-                                        Services
-                                    </Link>
-                                </p>
-                            </li>
-                            <li className="mb-2">
-                                <p className="text-lg">
                                     <Link to="/contact" className="text-yellow-500 hover:border-b-4 hover:border-slate-500">
                                         Contact
                                     </Link>
